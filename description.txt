@@ -1,0 +1,19 @@
+
+1. Welcome/Login Screen:
+A welcoming interface for signing in or registering.
+
+2. First-Time Quiz Screen:
+Introduction: "Help us craft your perfect adventure!"
+Question & Options: Users answer a series of questions to create a taste profile, such as travel preferences, activities they enjoy, types of cuisines they're interested in, etc.
+3. Dashboard/Home Screen:
+Search Bar: Users input a location.
+Button: "Generate Adventures" or "Craft My Journey".
+Profile Summary: A recap or visualization of their taste profile.
+4. Generating Itinerary Screen:
+An interstitial screen with an animated loader and a message like "Crafting your personalized adventure...".
+5. Itinerary Results Screen:
+Here, the itineraries are not filtered but are freshly generated based on the combination of the user's taste profile and the location entered. This ensures each result is specifically tailored to the user.
+Cards: Display relevant itinerary information.
+6. Profile/Settings Screen:
+Display and allow editing of the user's taste profile.
+Other options for user settings and actions.
