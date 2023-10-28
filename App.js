@@ -8,7 +8,8 @@ import DashboardScreen from './screens/DashboardScreen';
 import IteneraryScreen from './screens/IteneraryScreen';
 import ResultsScreen from './screens/ResultsScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginScreen from './screens/LoginScreen';
+import WelcomeScreen from './screens/WelcomeScreens/WelcomeScreen';
+import LoginScreen from './screens/WelcomeScreens/LoginScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,7 +30,8 @@ export default function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen name="Welcome" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
