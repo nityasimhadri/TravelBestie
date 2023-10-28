@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,24 +9,30 @@ import IteneraryScreen from './screens/IteneraryScreen';
 import ResultsScreen from './screens/ResultsScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './screens/LoginScreen';
-import { useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
- 
-export default function App() {
-  return(
-      <PaperProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator initialRouteName="Welcome">
-            <Tab.Screen name="Welcome" component={LoginScreen} />
-            <Tab.Screen name="Quiz" component={QuizScreen} />
-            <Tab.Screen name="Dashboard" component={DashboardScreen} />
-            <Tab.Screen name="Generating" component={IteneraryScreen} />
-            <Tab.Screen name="Results" component={ResultsScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </PaperProvider>
-    );
-  
+
+function MainTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Quiz" component={QuizScreen} />
+      <Tab.Screen name="Dashboard" component={DashboardScreen} />
+      <Tab.Screen name="Generating" component={IteneraryScreen} />
+      <Tab.Screen name="Results" component={ResultsScreen} />
+    </Tab.Navigator>
+  );
 }
- 
+
+export default function App() {
+  return (
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen name="Welcome" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
+  );
+}

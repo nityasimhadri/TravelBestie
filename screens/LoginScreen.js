@@ -34,7 +34,7 @@ import React, {useState} from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, Image } from 'react-native';
 import {Button, Text} from 'react-native-paper';
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   const [activeScreen, setActiveScreen] = useState(0);
   let screenWidth = Dimensions.get('window').width;
 
@@ -70,10 +70,10 @@ export default function LoginScreen() {
       
      {/* login footer */}
      <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: 'white', padding: 10, columnGap: 20 }}>
-     <Button mode="contained" buttonColor="white" textColor="black" style={{  borderColor: 'black', borderWidth: 1, paddingHorizontal: 20 }} >
+     <Button onPress={() => navigation.navigate('Main', { screen: 'Quiz' })} mode="contained" buttonColor="white" textColor="black" style={{  borderColor: 'black', borderWidth: 1, paddingHorizontal: 20 }} >
         Log In
       </Button>
-      <Button mode="contained" buttonColor="black" style={{ paddingHorizontal: 20 }}   >
+      <Button onPress={() => navigation.navigate('Main', { screen: 'Quiz' })} mode="contained" buttonColor="black" style={{ paddingHorizontal: 20 }}   >
         Sign Up
       </Button>
       </View>
