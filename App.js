@@ -15,33 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Tab = createBottomTabNavigator();
  
 export default function App() {
-  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
- 
-    useEffect(() => {
-    // Check if the user has launched the app before
-    AsyncStorage.getItem('alreadyLaunched').then(value => {
-      if (value == null) {
-        // Set flag to AsyncStorage for next time's check
-        AsyncStorage.setItem('alreadyLaunched', 'true');
-        setIsFirstLaunch(true);
-      } else {
-        setIsFirstLaunch(false);
-      }
-    });
-    }, []);
-  if (isFirstLaunch === null) {
-    return null;
-  } else if (isFirstLaunch === true) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Tutorial">
-          <Stack.Screen name="Tutorial" component={TutorialScreen} />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  } else {
-    return (
+  return(
       <PaperProvider theme={theme}>
         <NavigationContainer>
           <Tab.Navigator initialRouteName="Welcome">
@@ -54,6 +28,6 @@ export default function App() {
         </NavigationContainer>
       </PaperProvider>
     );
-  }
+  
 }
  
