@@ -1,45 +1,106 @@
 [
     {
-      "text": "1. Which type of destination are you most interested in?",
-      "options": ["Beach destination", 
-      "Mountain destination",
-      "Cultural city destination",
-      "Adventure destination"]
+        "text": "1. Which type of destination are you most interested in?",
+        "options": [
+            "Beach destination",
+            "Mountain destination",
+            "Cultural city destination",
+            "Adventure destination",
+            "Historical sites",
+            "Natural wonders"
+        ]
     },
     {
-      "text": "2. What is the primary purpose of your trip?",
-      "options": ["Relaxation",
-      "Adventure and exploration",
-      "Cultural immersion",
-      "Food and culinary experiences"]
+        "text": "2. What is the primary purpose of your trip?",
+        "options": [
+            "Relaxation",
+            "Adventure and exploration",
+            "Cultural immersion",
+            "Food and culinary experiences",
+            "Historical exploration",
+            "Photography"
+        ]
     },
     {
-      "text": "3. Which type of destination are you most interested in?",
-      "options": ["Beach destination", 
-      "Mountain destination",
-      "Cultural city destination",
-      "Adventure destination"]
+        "text": "3. What kind of accommodation do you prefer?",
+        "options": [
+            "Luxury hotels/resorts",
+            "Boutique hotels",
+            "Bed and breakfast",
+            "Hostels",
+            "Local homestays",
+            "Camping"
+        ]
     },
     {
-      "text": "4. What is the primary purpose of your trip?",
-      "options": ["Relaxation",
-      "Adventure and exploration",
-      "Cultural immersion",
-      "Food and culinary experiences"]
+        "text": "4. What's your preferred mode of travel within the destination?",
+        "options": [
+            "Walking or cycling",
+            "Public transportation",
+            "Renting a car",
+            "Organized tours",
+            "Taxis or rideshares",
+            "I'd like a mix"
+        ]
     },
     {
-      "text": "5. Which type of destination are you most interested in?",
-      "options": ["Beach destination", 
-      "Mountain destination",
-      "Cultural city destination",
-      "Adventure destination"]
+        "text": "5. Which of the following activities excites you the most?",
+        "options": [
+            "Visiting museums and galleries",
+            "Outdoor sports (e.g., hiking, diving)",
+            "Attending local events or festivals",
+            "Shopping at local markets",
+            "Taking workshops (e.g., cooking, crafts)",
+            "Wildlife observation"
+        ]
     },
     {
-      "text": "6. What is the primary purpose of your trip?",
-      "options": ["Relaxation",
-      "Adventure and exploration",
-      "Cultural immersion",
-      "Food and culinary experiences"]
+        "text": "6. What kind of food experiences are you looking forward to?",
+        "options": [
+            "Fine dining",
+            "Street food stalls",
+            "Local cafes and bistros",
+            "Food markets",
+            "Cooking classes",
+            "I'm adventurous; I'll try anything!"
+        ]
+    },
+    {
+        "text": "7. What's your travel pace?",
+        "options": [
+            "I want to see everything, even if it's rushed",
+            "A balanced mix of relaxation and exploration",
+            "Take it slow and immerse in a few selected places",
+            "I have no set plan; I go with the flow"
+        ]
+    },
+    {
+        "text": "8. How do you feel about interacting with locals?",
+        "options": [
+            "I prefer sticking to tourist spots",
+            "I love mingling and making local friends",
+            "I'll interact when needed, but generally keep to myself",
+            "I'd like to participate in local community activities or services"
+        ]
+    },
+    {
+        "text": "9. Which of these is a deal-breaker for you?",
+        "options": [
+            "Crowded places",
+            "High temperatures",
+            "Lack of modern amenities",
+            "Language barriers",
+            "Limited transportation options",
+            "None of the above"
+        ]
+    },
+    {
+        "text": "10. Lastly, what's your budget like?",
+        "options": [
+            "Luxury - I'm willing to splurge for comfort and experiences",
+            "Moderate - I'm looking for value for money",
+            "Budget - I'm trying to spend as little as possible without compromising on essential experiences",
+            "Flexible - It depends on the experience"
+        ]
     }
-    
-  ]
+]
