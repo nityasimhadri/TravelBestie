@@ -1,0 +1,16 @@
+[
+    {
+      "text": "Which type of destination are you most interested in?",
+      "options": ["Beach destination", 
+      "Mountain destination",
+      "Cultural city destination",
+      "Adventure destination"]
+    },
+    {
+      "text": "What is the primary purpose of your trip?",
+      "options": ["Relaxation",
+      "Adventure and exploration",
+      "Cultural immersion",
+      "Food and culinary experiences"]
+    }
+  ]
