@@ -3,35 +3,47 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PaperProvider } from 'react-native-paper';
-import NavigationBar from './screens/Navigation';
- 
-// Import your screens
-import WelcomeScreen from './screens/WelcomeScreen';
+import theme from './theme/theme';
 import QuizScreen from './screens/QuizScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import IteneraryScreen from './screens/IteneraryScreen';
 import ResultsScreen from './screens/ResultsScreen';
- 
-const Stack = createStackNavigator();
- 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import LoginScreen from './screens/LoginScreen';
+import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const Tab = createBottomTabNavigator();
+
 export default function App() {
-  return (
-    <PaperProvider>
+  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
+
+    useEffect(() => {
+    // Check if the user has launched the app before
+    AsyncStorage.getItem('alreadyLaunched').then(value => {
+      if (value == null) {
+        // Set flag to AsyncStorage for next time's check
+        AsyncStorage.setItem('alreadyLaunched', 'true');
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    });
+    }, []);
+  if (isFirstLaunch === null) {
+    return null;
+  } else if (isFirstLaunch === true) {
+    return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Quiz">
-        <Stack.Screen name="Quiz" component={QuizScreen} />
+        <Stack.Navigator initialRouteName="Tutorial">
+          <Stack.Screen name="Tutorial" component={TutorialScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          
+          <Stack.Screen name="Quiz" component={QuizScreen} />
           <Stack.Screen name="Dashboard" component={DashboardScreen} />
           <Stack.Screen name="Generating" component={IteneraryScreen} />
           <Stack.Screen name="Results" component={ResultsScreen} />
-
-        
         </Stack.Navigator>
         {/* <NavigationBar /> */}
       </NavigationContainer>
-      
     </PaperProvider>
   );
 }
- 

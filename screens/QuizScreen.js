@@ -1,7 +1,7 @@
 // screens/QuizScreen.js
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Button, RadioButton, Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 
 export default function QuizScreen({ navigation }) {
   const [answers, setAnswers] = useState({});
