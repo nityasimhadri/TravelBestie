@@ -13,10 +13,10 @@ import LoginScreen from './screens/LoginScreen';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Tab = createBottomTabNavigator();
-
+ 
 export default function App() {
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
-
+ 
     useEffect(() => {
     // Check if the user has launched the app before
     AsyncStorage.getItem('alreadyLaunched').then(value => {
@@ -37,13 +37,23 @@ export default function App() {
         <Stack.Navigator initialRouteName="Tutorial">
           <Stack.Screen name="Tutorial" component={TutorialScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Quiz" component={QuizScreen} />
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="Generating" component={IteneraryScreen} />
-          <Stack.Screen name="Results" component={ResultsScreen} />
         </Stack.Navigator>
-        {/* <NavigationBar /> */}
       </NavigationContainer>
-    </PaperProvider>
-  );
+    );
+  } else {
+    return (
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Tab.Navigator initialRouteName="Welcome">
+            <Tab.Screen name="Welcome" component={LoginScreen} />
+            <Tab.Screen name="Quiz" component={QuizScreen} />
+            <Tab.Screen name="Dashboard" component={DashboardScreen} />
+            <Tab.Screen name="Generating" component={IteneraryScreen} />
+            <Tab.Screen name="Results" component={ResultsScreen} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    );
+  }
 }
+ 
