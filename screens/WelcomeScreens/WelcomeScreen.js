@@ -3,6 +3,7 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, Image } from 'react-native';
 import {Button, Text} from 'react-native-paper';
+import screenOne from './screenOne';
 
 export default function WelcomeScreen({navigation}) {
   const [activeScreen, setActiveScreen] = useState(0);
