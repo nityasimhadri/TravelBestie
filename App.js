@@ -6,7 +6,7 @@ import theme from './theme/theme';
 import QuizScreen from './screens/QuizScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import IteneraryScreen from './screens/IteneraryScreen';
-import ResultsScreen from './screens/ResultsScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './screens/LoginScreen';
 
@@ -19,7 +19,7 @@ function MainTabs() {
       <Tab.Screen name="Quiz" component={QuizScreen} />
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
       <Tab.Screen name="Generating" component={IteneraryScreen} />
-      <Tab.Screen name="Results" component={ResultsScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }

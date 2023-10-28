@@ -1,13 +1,12 @@
 // screens/ResultsScreen.js
 import React from 'react';
-import { View, ScrollView } from 'react-native';
 import { Card, Text, Title, Paragraph } from 'react-native-paper';
 
-export default function ResultsScreen({ route }) {
+export default function ProfileScreen({ navigation }) {
 
   return (
     <Text>
-    Hello
+      Hello
     </Text>
   );
 }
