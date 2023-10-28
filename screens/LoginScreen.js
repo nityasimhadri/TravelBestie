@@ -1,10 +1,8 @@
-// screens/WelcomeScreen.js
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 
-export default function WelcomeScreen({ navigation }) {
+export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Welcome to Travel Bestie!</Text>
