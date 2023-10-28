@@ -3,14 +3,14 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, Image } from 'react-native';
 import {Button, Text} from 'react-native-paper';
-import screenOne from './screenOne';
+import ScreenOne from './screenOne';
 
 export default function WelcomeScreen({navigation}) {
   const [activeScreen, setActiveScreen] = useState(0);
   let screenWidth = Dimensions.get('window').width;
 
   const screens = [
-    <Screen1 key="screen1" screenWidth={screenWidth} />,
+    <ScreenOne key="screen1" screenWidth={screenWidth} />,
     <Screen2 key="screen2" screenWidth={screenWidth} />,
     <Screen3 key="screen3" screenWidth={screenWidth} />,
   ];
