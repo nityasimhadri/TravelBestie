@@ -10,20 +10,21 @@ import QuizScreen from './screens/QuizScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import IteneraryScreen from './screens/IteneraryScreen';
 import ResultsScreen from './screens/ResultsScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Quiz" component={QuizScreen} />
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="Generating" component={IteneraryScreen} />
-          <Stack.Screen name="Results" component={ResultsScreen} />
-        </Stack.Navigator>
+        <Tab.Navigator initialRouteName="Welcome">
+          <Tab.Screen name="Welcome" component={WelcomeScreen} />
+          <Tab.Screen name="Quiz" component={QuizScreen} />
+          <Tab.Screen name="Dashboard" component={DashboardScreen} />
+          <Tab.Screen name="Generating" component={IteneraryScreen} />
+          <Tab.Screen name="Results" component={ResultsScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
