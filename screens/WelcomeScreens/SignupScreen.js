@@ -1,23 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet,TextInput } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-export default function LoginScreen({navigation}) {
+export default function SignupScreen({navigation}) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // You can add your login logic here, such as API calls or authentication
+  const handleSignup = () => {
+    // You can add your signup logic here, such as creating a new user
 
-    // For this example, we'll just log the email and password
+    // For this example, we'll just log the name, email, and password
+    console.log('Name:', name);
     console.log('Email:', email);
     console.log('Password:', password);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Log In</Text>
-      
+      <Text style={styles.title}>Sign Up</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        onChangeText={text => setName(text)}
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -29,15 +35,9 @@ export default function LoginScreen({navigation}) {
         secureTextEntry={true}
         onChangeText={text => setPassword(text)}
       />
-      
-      <Button onPress={() => navigation.navigate('Login')} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
-        Log In
-      </Button>
-      <Text>Don't have an account?</Text>
-      <Button onPress={()=> navigation.navigate('Signup')} mode="contained" buttonColor="#023047"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
+      <Button onPress={()=> navigation.navigate('Main', { screen: 'Quiz' })} mode="contained" buttonColor="#023047"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
         Sign Up
       </Button>
-
     </View>
   );
 }
@@ -59,9 +59,5 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginBottom: 20,
     paddingLeft: 10,
-  },
-  button: {
-    borderRadius: 30,
-    buttonColor: 'black'
   },
 });

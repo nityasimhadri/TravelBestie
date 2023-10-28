@@ -2,18 +2,18 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function ScreenOne({ screenWidth })  {
+export default function ScreenThree({ screenWidth })  {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/travelbestie.jpg')}
+        source={require('../../assets/friends.jpeg')}
         style={[styles.image , { width: screenWidth}]}
       />
-      <View style={styles.border} />
+        <View style={styles.border} />
       <View style={styles.textContainer}>
-        <Text style={styles.header}>Welcome to Travel Bestie!</Text>
+        <Text style={styles.header}>Your Ideal Getaway Awaits</Text>
         <View style={styles.subtextContainer}>
-          <Text style={styles.subheader}> Swipe to learn more </Text>
+          <Text style={styles.subheader}> Lets design it! </Text>
           <Icon name="angle-right" size={21} color="black" />
         </View>
     </View>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'top',
     alignItems: 'center',
-    
+    // backgroundColor: 'white'
   },
   image: {
     // paddingLeft: 550,

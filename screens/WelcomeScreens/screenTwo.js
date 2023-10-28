@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function ScreenOne({ screenWidth })  {
+export default function ScreenTwo({ screenWidth })  {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/travelbestie.jpg')}
+        source={require('../../assets/snorkeling.avif')}
         style={[styles.image , { width: screenWidth}]}
       />
-      <View style={styles.border} />
+        <View style={styles.border} />
       <View style={styles.textContainer}>
         <Text style={styles.header}>Welcome to Travel Bestie!</Text>
         <View style={styles.subtextContainer}>
