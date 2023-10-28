@@ -29,14 +29,22 @@ export default function LoginScreen({navigation}) {
         secureTextEntry={true}
         onChangeText={text => setPassword(text)}
       />
-      
-      <Button onPress={() => navigation.navigate('Login')} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
-        Log In
-      </Button>
+
+      <View style={styles.buttonContainer}>
+       
+          <Button onPress={() => navigation.navigate('Login')} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
+            Log In
+          </Button>
+   
+        
+   
+      </View>
+      <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: 20, rowGap: 10 }}>
       <Text>Don't have an account?</Text>
-      <Button onPress={()=> navigation.navigate('Signup')} mode="contained" buttonColor="#023047"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
-        Sign Up
-      </Button>
+            <Button onPress={()=> navigation.navigate('Signup')} mode="contained" buttonColor="#023047"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
+              Sign Up
+            </Button>
+      </View>
 
     </View>
   );
@@ -59,6 +67,27 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginBottom: 20,
     paddingLeft: 10,
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    flexDirection: 'column',
+    rowGap: 200,
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  topButtons: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    // backgroundColor: 'lightblue',
+    // padding: 20,
+  },
+  bottomButtons: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    // backgroundColor: 'lightcoral',
+    // padding: 20,
   },
   button: {
     borderRadius: 30,
