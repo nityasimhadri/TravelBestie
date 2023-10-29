@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { View, Text,FlatList, StyleSheet } from 'react-native';
+import { View, Text,FlatList, StyleSheet, ScrollView } from 'react-native';
 import {  Button, Avatar, Card } from 'react-native-paper';
 
 
@@ -31,14 +31,14 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
       {/* <Text style={styles.userName}>{profile.name}'s Profile</Text> */}
       
 
-      <View style={styles.section}>
+      <ScrollView style={styles.section}>
         <Text style={styles.sectionHeader}>Liked Places</Text>
         <FlatList
           horizontal={true}
           data={likedPlaces}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <Card style={{ width: 150, margin: 10 }}>
+            <Card style={styles.card}>
               <Card.Cover source={require("../assets/skydiving.avif")}/>
               <Card.Content>
                 <Text>{item.name}</Text>
@@ -46,16 +46,13 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
             </Card>
           )}
         />
-      {/* </View>
-
-      <View style={styles.section}> */}
         <Text style={styles.sectionHeader}>Liked Activities</Text>
         <FlatList
           horizontal={true}
           data={likedActivities}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <Card style={{ width: 150, margin: 10 }}>
+            <Card style={styles.card}>
               <Card.Cover source={require("../assets/friends.jpeg")}/>
               <Card.Content>
                 <Text>{item.name}</Text>
@@ -63,18 +60,11 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
             </Card>
           )}
         />
-      {/* </View>
+        <Text style={styles.sectionHeader}></Text>
 
-      <View style={styles.section}> */}
-        <Text style={styles.sectionHeader}>Friends</Text>
-        {/* <FlatList
-          data={friends}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Text>{item.name}</Text>
-          )}
-        /> */}
-      </View>
+   
+
+      </ScrollView>
 
      
     </View>
@@ -85,7 +75,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    fontFamily: 'AppleSDGothicNeo-Regular',
     
   },
   profileHeader: {
@@ -109,7 +98,6 @@ const styles = StyleSheet.create({
   },
   tag: {
     fontSize: 16,
-    // fontWeight: 'bold',
     fontFamily: 'AppleSDGothicNeo-Regular',
     color: 'white'
   },
@@ -119,11 +107,20 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,  
     borderTopLeftRadius: 20,  
     padding: 16,
-    top: -20
+    top: -20,
   },
   sectionHeader: {
     fontFamily: 'AppleSDGothicNeo-Regular',
     fontSize: 18,
     marginBottom: 10,
+  },
+  // activities: {
+  //   fontFamily: 'AppleSDGothicNeo-Regular',
+  //   // paddingTop: 30
+  // },
+  card: {
+    width: 150,
+    margin: 10,
+    height: 230
   },
 });
