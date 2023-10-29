@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 import { View, StyleSheet,TextInput } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-
+import firebase from '../../firebase'
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    // You can add your login logic here, such as API calls or authentication
-
-    // For this example, we'll just log the email and password
-
-  };
+const handleLogin = async () => {
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    navigation.navigate('Main', { screen: 'Quiz' });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 
   return (
     <View style={styles.container}>
@@ -31,7 +33,7 @@ export default function LoginScreen({navigation}) {
 
       <View style={styles.buttonContainer}>
        
-          <Button onPress={() => navigation.navigate('Main', { screen: 'Quiz' })} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
+          <Button onPress={handleLogin} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
             Log In
           </Button>
    
