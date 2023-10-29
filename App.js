@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WelcomeScreen from './screens/WelcomeScreens/WelcomeScreen';
 import LoginScreen from './screens/WelcomeScreens/LoginScreen';
 import SignupScreen from './screens/WelcomeScreens/SignupScreen';
+import './firebase'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

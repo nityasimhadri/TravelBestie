@@ -6,12 +6,11 @@ export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // You can add your login logic here, such as API calls or authentication
 
     // For this example, we'll just log the email and password
-    console.log('Email:', email);
-    console.log('Password:', password);
+
   };
 
   return (

@@ -18,6 +18,8 @@
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.0",
     "expo": "~49.0.15",
+    "expo-firebase-auth": "^2.0.0",
+    "expo-firebase-core": "^6.0.0",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.5.2",
     "react": "18.2.0",
