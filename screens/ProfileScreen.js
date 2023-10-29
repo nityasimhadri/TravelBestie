@@ -15,7 +15,7 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
   // }, [user.id, fetchUserProfile]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
        <View style={styles.profileHeader}>
         <Avatar.Image
           size={100}
@@ -39,9 +39,9 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Card style={styles.card}>
-              <Card.Cover source={require("../assets/skydiving.avif")}/>
-              <Card.Content>
-                <Text>{item.name}</Text>
+              <Card.Cover source={require("../assets/skydiving.avif")} style={styles.cardCover}/>
+              <Card.Content style={styles.cardContent}>
+                <Text style={styles.cardText}>{item.name} </Text>
               </Card.Content>
             </Card>
           )}
@@ -53,10 +53,10 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Card style={styles.card}>
-              <Card.Cover source={require("../assets/friends.jpeg")}/>
-              <Card.Content>
-                <Text>{item.name}</Text>
-              </Card.Content>
+              <Card.Cover source={require("../assets/friends.jpeg")}style={styles.cardCover}/>
+              <Card.Content style={styles.cardContent}>
+                <Text style={styles.cardText}>{item.name}</Text>
+              </Card.Content >
             </Card>
           )}
         />
@@ -67,7 +67,7 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
       </ScrollView>
 
      
-    </View>
+    </ScrollView>
   );
 }
 
@@ -121,6 +121,20 @@ const styles = StyleSheet.create({
   card: {
     width: 150,
     margin: 10,
-    height: 230
+    // height: 230,
+    backgroundColor: 'white',
+    alignContent: 'center',
+    justifyContent: 'center'
   },
+  cardCover: {
+    borderBottomLeftRadius:0,
+    borderBottomRightRadius:0,
+    height: 120
+  },
+  cardContent: {
+    flexDirection: 'column',
+    alignItems: 'left',
+  },
+
+
 });
