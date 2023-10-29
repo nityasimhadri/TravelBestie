@@ -1,0 +1,42 @@
+[
+    {
+      "id": 1,
+      "name": "Hiking",
+      "description": "Explore scenic trails and enjoy the outdoors.",
+      "category": "Outdoor",
+      "location": "Mountain National Park",
+      "image": "../assets/friends.jpeg"
+    },
+    {
+      "id": 2,
+      "name": "Beach Volleyball",
+      "description": "Have fun playing volleyball on the beach.",
+      "category": "Beach",
+      "location": "Sandy Beach",
+      "image": "friends.jpeg"
+    },
+    {
+      "id": 3,
+      "name": "Cultural Tour",
+      "description": "Discover the rich history and culture of a city.",
+      "category": "Cultural",
+      "location": "Historic City",
+      "image": "friends.jpeg"
+    },
+    {
+      "id": 4,
+      "name": "Biking",
+      "description": "Ride through scenic routes and enjoy the ride.",
+      "category": "Outdoor",
+      "location": "Countryside",
+      "image": "friends.jpeg"
+    },
+    {
+      "id": 5,
+      "name": "Surfing",
+      "description": "Catch some waves and surf on the ocean.",
+      "category": "Water",
+      "location": "Surf Beach",
+      "image": "friends.jpeg"
+    }
+  ]

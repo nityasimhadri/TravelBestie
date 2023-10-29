@@ -32,7 +32,7 @@ export default function LoginScreen({navigation}) {
 
       <View style={styles.buttonContainer}>
        
-          <Button onPress={() => navigation.navigate('Login')} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
+          <Button onPress={() => navigation.navigate('Main', { screen: 'Quiz' })} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: 300, borderRadius: 30 }} >
             Log In
           </Button>
    
