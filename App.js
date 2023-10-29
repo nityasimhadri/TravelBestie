@@ -18,7 +18,7 @@ import { Provider } from "react-redux";
 import userReducer from './services/user-reducer';
 
 const store = configureStore({
-  reducer: {users: userReducer}
+  reducer: {user: userReducer}
 });
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

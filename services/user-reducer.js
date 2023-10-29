@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  findUserThunk,
+  findUserByIdThunk,
   createUserThunk,
   deleteUsersThunk,
   updateUserThunk,
 } from "./thunks";
 
 const initialState = {
-  users: [],
+  user: null,
   loading: false,
   error: null
 };
@@ -17,33 +17,34 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [findUserThunk.pending]: (state) => {
+    [findUserByIdThunk.pending]: (state) => {
       state.loading = true;
-      state.users = [];
+      state.user = null;
     },
-    [findUserThunk.fulfilled]: (state, { payload }) => {
+    [findUserByIdThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.users = payload;
+      state.user = payload;
     },
-    [findUserThunk.rejected]: (state, action) => {
+    [findUserByIdThunk.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.error;
     },
-    [deleteUsersThunk.fulfilled]: (state, { payload }) => {
+    [deleteUsersThunk.fulfilled]: (state) => {
       state.loading = false;
-      state.users = state.users.filter(u => u._id !== payload);
+      state.user = null;
     },
     [createUserThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.users.push(payload);
+      state.user = payload;
     },
     [updateUserThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      const userNdx = state.users.findIndex((u) => u._id === payload._id);
-      state.users[userNdx] = {
-        ...state.users[userNdx],
-        ...payload
-      };
+      if (state.user && state.user._id === payload._id) {
+        state.user = {
+          ...state.user,
+          ...payload
+        };
+      }
     },
   },
 });
