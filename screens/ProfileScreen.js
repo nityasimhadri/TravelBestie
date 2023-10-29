@@ -5,7 +5,7 @@ import { View, Text,FlatList, StyleSheet, ScrollView } from 'react-native';
 import {  Button, Avatar, Card } from 'react-native-paper';
 
 
-export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
+export default function ProfileScreen({ navigation, user,  friends, fetchUserProfile }) {
   const likedActivities = require('./LikedActivities.json');
   const likedPlaces = require('./LikedPlaces.json');
   // const [profile, setProfile] = useState(user);
@@ -27,6 +27,7 @@ export default function ProfileScreen({ user,  friends, fetchUserProfile }) {
         <Text style={styles.tag}>@nityathetraveler</Text>
         </View>
        <Button mode='contained' buttonColor='rgba(255, 255, 255, 0.2)' textColor="white" style={{  borderRadius: 10}}> Edit Profile </Button>
+       <Button mode='contained' buttonColor='rgba(255, 255, 255, 0.2)' textColor="white" style={{  borderRadius: 10}} onPress={()=> navigation.navigate('Signup')}> Log Out </Button>
       </View>
       {/* <Text style={styles.userName}>{profile.name}'s Profile</Text> */}
       
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   //   // paddingTop: 30
   // },
   card: {
-    width: 150,
+    width: 140,
     margin: 10,
     // height: 230,
     backgroundColor: 'white',
@@ -135,6 +136,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'left',
   },
+  cardText: {
+    fontFamily: 'AppleSDGothicNeo-Regular',
+    fontWeight: 'bold'
+  }
 
 
 });
