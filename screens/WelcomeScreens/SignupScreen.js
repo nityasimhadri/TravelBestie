@@ -2,21 +2,39 @@ import React, { useState } from 'react';
 import { View, StyleSheet,TextInput } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import firebase from '../../firebase'
+import { createUserThunk } from '../../services/thunks';
+import { useDispatch } from 'react-redux';
 
 export default function SignupScreen({navigation}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+      const dispatch = useDispatch();
   const handleSignup = async () => {
+
     try {
-      const user = await firebase.auth().createUserWithEmailAndPassword(email, password).user
+      const authResult = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      const user = authResult.user;
+      if (user) {
+        const userData = {
+          email: email,
+          username: name,
+
+        };
+
+
+        dispatch(createUserThunk(userData)).then((result) => {
+          if (createUserThunk.fulfilled.match(result)) {
+            navigation.navigate('Main', { screen: 'Quiz' });
+          } else if (createUserThunk.rejected.match(result)) {
+            console.error('Error saving to MongoDB:', result.error);
+          }
+        });
+      }
       navigation.navigate('Main', { screen: 'Quiz' });
     } catch (err) {
       console.log(err.message);
     }
-    
-    
   };
   
   return (

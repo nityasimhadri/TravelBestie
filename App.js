@@ -12,7 +12,14 @@ import WelcomeScreen from './screens/WelcomeScreens/WelcomeScreen';
 import LoginScreen from './screens/WelcomeScreens/LoginScreen';
 import SignupScreen from './screens/WelcomeScreens/SignupScreen';
 import './firebase'
+import { configureStore }
+  from '@reduxjs/toolkit';
+import { Provider } from "react-redux";
+import userReducer from './services/user-reducer';
 
+const store = configureStore({
+  reducer: {users: userReducer}
+});
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -29,6 +36,7 @@ function MainTabs() {
 
 export default function App() {
   return (
+    <Provider store={store}>
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome">
@@ -39,5 +47,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
+    </Provider>
   );
 }

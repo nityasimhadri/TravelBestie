@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import * as service from "./users-dao";
+import * as service from "./service";
 
 export const sendFriendRequestThunk = createAsyncThunk(
   'user/sendFriendRequest',

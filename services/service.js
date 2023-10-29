@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const SERVER_API_URL = process.env.REACT_APP_SERVER_DB_URL;
+const SERVER_API_URL = 'http://localhost:4000/api';
 const USER_DB_API = `${SERVER_API_URL}/users`;
 
 export const sendFriendRequest = async (uid, fid) => {
