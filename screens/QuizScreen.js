@@ -33,18 +33,22 @@ const handleNavigation = (offset) => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Help us craft your perfect adventure!</Text>
+            <Text style={styles.title}>Tell us what your're looking for!</Text>
             
             {currentQuestion < quizQuestions.length && (
                 <View style={styles.quizContainer}>
                     <Text style={styles.question}>{quizQuestions[currentQuestion].text}</Text>
-                    <RadioButton.Group 
-                        onValueChange={handleAnswerPress}
-                        value={answers[currentQuestion]}>
-                        {quizQuestions[currentQuestion].options.map((option, index) => (
-                            <RadioButton.Item key={index} label={option} value={option} />
-                        ))}
-                    </RadioButton.Group>
+                    <View style={styles.radioGroupContainer}>
+                        <RadioButton.Group
+                            onValueChange={handleAnswerPress}
+                            value={answers[currentQuestion]}
+                            style={styles.radioGroup}
+                        >
+                            {quizQuestions[currentQuestion].options.map((option, index) => (
+                                <RadioButton.Item key={index} label={option} value={option} />
+                            ))}
+                        </RadioButton.Group>
+                    </View>
 
                     <View style={styles.buttons}>
                         {currentQuestion > 0 && (
@@ -66,29 +70,58 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         padding: 20,
+        flexDirection: 'column',
+        rowGap: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20
+    // title: {
+    //     fontSize: 24,
+    //     fontWeight: 'bold',
+    //     textAlign: 'center',
+    //     marginBottom: 20,
+    // },
+    // question: {
+    //     fontSize: 20,
+    //     marginBottom: 20,
+    // },
+  title: {
+      fontSize: 22,
+      fontFamily: 'AppleSDGothicNeo-Regular',
+      fontWeight: 'bold',
+      color: 'black',
+  
     },
+  
     question: {
-        fontSize: 20,
-        marginBottom: 20
+      fontSize: 17,
+      fontFamily: 'AppleSDGothicNeo-Regular',
+      // fontWeight: '100',
+      color: 'black',
     },
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 20,
-        width: '100%'
+        width: '100%',
     },
     prevButton: {
-        marginRight: 10
+        marginRight: 10,
     },
     quizContainer: {
         width: '100%',
-    }
+    },
+    radioGroupContainer: {
+        borderWidth: 1, 
+        borderColor: 'black', 
+        borderRadius: 10, 
+        padding: 10, 
+        marginBottom: 20, 
+        backgroundColor: 'white'
+    },
+    line: {
+      borderBottomWidth: 1,
+      borderBottomColor: 'black',
+      marginVertical: 20,
+  },
 });
