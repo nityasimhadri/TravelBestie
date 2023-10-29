@@ -17,6 +17,7 @@ export default function SignupScreen({navigation}) {
       const user = authResult.user;
       if (user) {
         const userData = {
+          _id: user.uid,
           email: email,
           username: name,
 

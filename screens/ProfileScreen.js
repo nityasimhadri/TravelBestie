@@ -1,77 +1,55 @@
+import React, { useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, ScrollView } from 'react-native';
+import { Button, Avatar, Card } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { findUserByIdThunk } from '../services/thunks';
+import firebase from "../firebase";
+import { findUserById } from '../services/service';
 
-
-import React, { useState, useEffect } from 'react';
-import { View, Text,FlatList, StyleSheet, ScrollView } from 'react-native';
-import {  Button, Avatar, Card } from 'react-native-paper';
-
-
-export default function ProfileScreen({ navigation, user,  friends, fetchUserProfile }) {
+export default function ProfileScreen({ navigation }) {
   const likedActivities = require('./LikedActivities.json');
   const likedPlaces = require('./LikedPlaces.json');
-  // const [profile, setProfile] = useState(user);
+  const [profile, setProfile] = useState({});
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   fetchUserProfile(user.id); // Fetch user profile data when the component mounts
-  // }, [user.id, fetchUserProfile]);
+  useEffect(() => {
+    const auth = firebase.auth()
+
+    auth.onAuthStateChanged(async (u) => {
+      if (u) {
+        const uid = u.uid;
+        const result = await findUserById(uid)
+        setProfile(result)
+ 
+        // await dispatch(findUserByIdThunk(uid)
+      } else {
+        // User is signed out
+        // ... handle signed out state
+      }
+    });
+  }, [dispatch]);
 
   return (
     <ScrollView style={styles.container}>
-       <View style={styles.profileHeader}>
+      <View style={styles.profileHeader}>
         <Avatar.Image
           size={100}
           source={require('../assets/travelbestie.jpg')}
           style={styles.profilePicture}
         />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={styles.userName}>Nitya Simhadri</Text>
-        <Text style={styles.tag}>@nityathetraveler</Text>
+          <Text style={styles.userName}>{profile?.username || 'Unknown User'}</Text>
+          <Text style={styles.tag}>{profile?.email || 'loading'}</Text>
         </View>
-       <Button mode='contained' buttonColor='rgba(255, 255, 255, 0.2)' textColor="white" style={{  borderRadius: 10}}> Edit Profile </Button>
-       <Button mode='contained' buttonColor='rgba(255, 255, 255, 0.2)' textColor="white" style={{  borderRadius: 10}} onPress={()=> navigation.navigate('Signup')}> Log Out </Button>
+        <Button mode='contained' style={styles.button}> Edit Profile </Button>
+        <Button mode='contained' style={styles.button} onPress={()=> navigation.navigate('Signup')}> Log Out </Button>
       </View>
-      {/* <Text style={styles.userName}>{profile.name}'s Profile</Text> */}
-      
-
       <ScrollView style={styles.section}>
-        <Text style={styles.sectionHeader}>Liked Places</Text>
-        <FlatList
-          horizontal={true}
-          data={likedPlaces}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Card style={styles.card}>
-              <Card.Cover source={require("../assets/skydiving.avif")} style={styles.cardCover}/>
-              <Card.Content style={styles.cardContent}>
-                <Text style={styles.cardText}>{item.name} </Text>
-              </Card.Content>
-            </Card>
-          )}
-        />
-        <Text style={styles.sectionHeader}>Liked Activities</Text>
-        <FlatList
-          horizontal={true}
-          data={likedActivities}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Card style={styles.card}>
-              <Card.Cover source={require("../assets/friends.jpeg")}style={styles.cardCover}/>
-              <Card.Content style={styles.cardContent}>
-                <Text style={styles.cardText}>{item.name}</Text>
-              </Card.Content >
-            </Card>
-          )}
-        />
-        <Text style={styles.sectionHeader}></Text>
-
-   
-
       </ScrollView>
-
-     
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

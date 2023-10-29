@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const SERVER_API_URL = 'http://localhost:4000/api';
-const USER_DB_API = `${SERVER_API_URL}/users`;
+const USER_DB_API = `${SERVER_API_URL}/user`;
 
 export const sendFriendRequest = async (uid, fid) => {
     const response = await axios.put(`${USER_DB_API}/sendRequest/${uid}/${fid}`);
