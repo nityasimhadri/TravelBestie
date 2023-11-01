@@ -61,6 +61,8 @@ export const getQuizAnswers = async (uid) => {
 }
 
 export const setQuizAnswers = async (uid, quizAnswers) => {
+        console.log(`${USER_DB_API}/${uid}/quiz`)
     const response = await axios.put(`${USER_DB_API}/${uid}/quiz`, quizAnswers);
+
     return response.data;
 }
