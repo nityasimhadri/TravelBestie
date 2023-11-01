@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const SERVER_API_URL = 'http://localhost:4000/api';
-const USER_DB_API = `${SERVER_API_URL}/user`;
+const USER_DB_API = `${SERVER_API_URL}/users`;
 
 export const setUserInterests = async (uid, interests) => {
     const response = await axios.put(`${USER_DB_API}/intrests/${uid}`, interests);
@@ -46,8 +46,15 @@ export const findUserByUsername = async (username) => {
 }
 
 export const createUser = async (user) => {
-    const response = await axios.post(USER_DB_API, user);
-    return response.data;
+    try {
+        const response = await axios.post(USER_DB_API, user);
+        console.log("createUser");
+        console.log(user);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error in createUser:", error);
+    }
 }
 
 export const deleteUsers = async (uid) => {

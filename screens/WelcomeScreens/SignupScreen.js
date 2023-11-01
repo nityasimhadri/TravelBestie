@@ -4,6 +4,7 @@ import { Button, Text } from 'react-native-paper';
 import firebase from '../../firebase'
 import { createUserThunk } from '../../services/thunks';
 import { useDispatch } from 'react-redux';
+import { createUser } from '../../services/service';
 
 export default function SignupScreen({navigation}) {
   const [name, setName] = useState('');
@@ -22,9 +23,10 @@ export default function SignupScreen({navigation}) {
           username: name,
 
         };
-
-
+        console.log('here')
+        // createUser(userData);
         dispatch(createUserThunk(userData)).then((result) => {
+          console.log(result);
           if (createUserThunk.fulfilled.match(result)) {
             navigation.navigate('Main', { screen: 'Quiz' });
           } else if (createUserThunk.rejected.match(result)) {
