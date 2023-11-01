@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { View, FlatList, StyleSheet, ScrollView, Modal } from 'react-native';
 import { Button, Searchbar, Text, Icon, Card, IconButton  } from 'react-native-paper';
 import QuizScreen from './QuizScreen';
+import TagBox from './TagBox';
 
 export default function DashboardScreen({ navigation }) {
 
@@ -48,7 +49,9 @@ export default function DashboardScreen({ navigation }) {
                 onPress={toggleFilterModal}
               />
                 <View style={styles.modalContent}>
-                  <QuizScreen/>
+                  <TagBox></TagBox>
+                  {/* <QuizScreen/> */}
+
                 </View>
               </View>
             </Modal>
