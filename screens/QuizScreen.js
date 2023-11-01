@@ -15,6 +15,7 @@ export default function QuizScreen({ navigation }) {
     };
     
     const [hasError, setHasError] = useState(false);
+    
     useEffect(() => {
         const auth = firebase.auth()
         
