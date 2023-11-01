@@ -1,0 +1,20 @@
+{
+    "travelInterests": [
+        "Active Life", "Amusement Parks", "Aquariums", "Archery", "Axe Throwing",
+        "Beaches", "Bike Rentals", "Boating", "Bowling", "Climbing", 
+        "Cycling Classes", "Dance Studios", "Escape Games", "Art Galleries", "Botanical Gardens", 
+        "Go Karts", "Hiking", "Horseback Riding", "Jazz & Blues", "Karaoke",
+        "Lakes", "Cinema", "Museums", "Music Venues", "Parks",
+        "Performing Arts", "Planetarium", "Rafting/Kayaking", "Recreation Centers", "Skating Rinks", 
+        "Skydiving", "Sledding", "Snorkeling", "Day Spas", "Sports Clubs",
+        "Summer Camps", "Swimming Pools", "Theater", "Wineries", "Yoga", 
+        "Zoos", "Tours", "Arcades", "Farms", "Casinos", "Observatories",
+        "Paint & Sip", "Virtual Reality Centers", "Historical Landmarks", "Hotels", "Bed & Breakfast",
+        "Vacation Rentals", "Restaurants", "Cafes", "Shopping", "Markets",
+        "Street Vendors", "Public Art", "Cultural Centers", "Historical Tours", "Food Tours",
+        "Wine Tours", "Breweries", "Bookstores", "Churches", "Temples",
+        "Festivals", "Local Flavor", "Photography Classes", "Walking Tours", "Scavenger Hunts",
+        "Cooking Classes", "Opera", "Cabaret", "Comedy Clubs", "Magic Shows",
+        "Dance Clubs", "Jazz and Blues Clubs"
+    ]
+}
