@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import { View, FlatList, StyleSheet, ScrollView, Modal } from 'react-native';
-import { Button, Searchbar, Text, Icon, Card, IconButton  } from 'react-native-paper';
+import { View, FlatList, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import { Button, Searchbar, Text, Card, IconButton  } from 'react-native-paper';
+import Modal from 'react-native-modal';
 import QuizScreen from './QuizScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 import TagBox from './TagBox';
+import DatePicker from './DatePicker';
 
 export default function DashboardScreen({ navigation }) {
 
@@ -35,25 +38,32 @@ export default function DashboardScreen({ navigation }) {
        
             </View>
             <Modal
-              visible={isFilterModalVisible}
-              animationType="slide"
-              transparent={true}
-              onRequestClose={toggleFilterModal}
+              isVisible={isFilterModalVisible} style={styles.modal}
             >
-              <View style={styles.modalContainer}>
-              <IconButton
-                icon="close"
-                color="black"
-                size={24}
-                style={styles.closeButton}
-                onPress={toggleFilterModal}
-              />
-                <View style={styles.modalContent}>
-                  <TagBox></TagBox>
-                  {/* <QuizScreen/> */}
+              <View style={styles.modalContent}>
+                <View style = {styles.modalHeader}>
+                  <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <Icon name="close" size={30} color= "#8ecae6" />
+                  </TouchableOpacity>
+                    <View style = {styles.modalSubheader}>
+                        <Text style={styles.modalHeaderText}>Filter Trip</Text>
+                    </View>
+                  </View>
 
-                </View>
-              </View>
+              
+            
+                <ScrollView >
+                <DatePicker/>
+                  <TagBox/>
+                </ScrollView>
+              
+              <View style={styles.modalFooter}>
+            <Button onPress={() => toggleFilterModal()} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: '60%', borderRadius: 15 }} >
+                Save
+            </Button>
+        </View>
+        </View>
+
             </Modal>
         </View>
         <View style={styles.subtextContainer}>
@@ -184,17 +194,41 @@ const styles = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Regular',
     fontWeight: 'bold',
   },
-  modalContainer: {
+  modal: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent backdrop
-    justifyContent: 'center',
+    margin: 0,
+  },
+
+  modalContent: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+    paddingTop: 50,
+    padding: 20
+  
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    // borderBottomWidth: 1,  // Add this line to create a border
+    // borderBottomColor: '#ccc', 
+  },
+  
+  modalSubheader: {
+    flex: 1,
     alignItems: 'center',
   },
-  modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-    width: '80%',
+  
+  modalHeaderText: {
+    fontSize: 18,
+    fontWeight: 800,
+    color: 'black',
+  },
+  modalFooter: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
   },
   
 

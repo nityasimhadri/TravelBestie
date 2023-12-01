@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Button} from 'react-native-paper';
 import Modal from 'react-native-modal';
+import CalendarPicker from 'react-native-calendar-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import the JSON data
 import categoriesData from './categories.json';
+
 
 // Extract the travel interests array from the imported data
 const travelInterests = categoriesData.travelInterests;
@@ -15,8 +18,10 @@ export default function TagBox() {
   const [tagInput, setTagInput] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedBoxTags, setSelectedBoxTags] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [filteredCategories, setFilteredCategories] = useState(travelInterests);
+
 
   // Load selected tags from AsyncStorage when the component mounts
   useEffect(() => {
@@ -24,7 +29,7 @@ export default function TagBox() {
       try {
         const savedTags = await AsyncStorage.getItem('selectedTags');
         if (savedTags) {
-          setSelectedTags(JSON.parse(savedTags));
+          setSelectedBoxTags(JSON.parse(savedTags));
         }
       } catch (error) {
         console.error("Error loading selected tags: " + error);
@@ -38,14 +43,14 @@ export default function TagBox() {
   useEffect(() => {
     const saveSelectedTags = async () => {
       try {
-        await AsyncStorage.setItem('selectedTags', JSON.stringify(selectedTags));
+        await AsyncStorage.setItem('selectedTags', JSON.stringify(selectedBoxTags));
       } catch (error) {
         console.error("Error saving selected tags: " + error);
       }
     };
 
     saveSelectedTags();
-  }, [selectedTags]);
+  }, [selectedBoxTags]);
 
   const addTag = () => {
     if (tagInput.trim() !== '' && travelInterests.includes(tagInput)) {
@@ -70,7 +75,7 @@ export default function TagBox() {
   // Filter the categories based on the search text
   useEffect(() => {
     const filtered = travelInterests.filter(category =>
-      category.toLowerCase().includes(searchText.toLowerCase())
+      category.toLowerCase().startsWith(searchText.toLowerCase())
     );
     setFilteredCategories(filtered);
   }, [searchText]);
@@ -91,63 +96,70 @@ export default function TagBox() {
     }
   };
   
-  // Call the function to clear AsyncStorage
+  //Call the function to clear AsyncStorage
 //   clearAsyncStorage();
 
   return (
     <View>
-      <ScrollView contentContainerStyle={styles.tagBox} onTouchEnd={() => setModalVisible(true)}>
-        {selectedTags.length > 0 ? (
-          selectedTags.map((tag, index) => (
-            <View key={index} style={styles.selectedTag}>
+        <View style={styles.tagBoxHeader}>
+            <Text style={styles.modalHeaderText}>Interests</Text>
+        </View>
+      <ScrollView contentContainerStyle={styles.tagBox}>
+        {
+          selectedBoxTags.map((tag, index) => (
+            <TouchableOpacity
+            key={index}
+            onPress={() => removeTag(index)}
+          >
+            <View key={index} style={styles.selectedTag }>
               <Text>{tag}</Text>
             </View>
+            </TouchableOpacity>
           ))
-        ) : (
-          <Text style={styles.placeholder}>Pick some interests</Text>
-        )}
-        {tags.map((tag, index) => (
-          <TouchableOpacity key={index} onPress={() => removeTag(index)}>
-            <View style={styles.tag}>
-              <Text>{tag}</Text>
+        }
+        <TouchableOpacity onPress={() => {setModalVisible(true), setSelectedTags(selectedBoxTags)}}>
+         <View style={styles.addTagButton }>
+         <Text style={{ color: 'white' }}>+ Add Interests</Text>
             </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-      <View style={styles.activities}>
-        <TextInput
-          style={styles.input}
-          value={tagInput}
-          onChangeText={(text) => setTagInput(text)}
-          placeholder="Add activities from predefined list"
-        />
-        <TouchableOpacity onPress={addTag}>
-          <View style={styles.addButton}>
-            <Text>Add</Text>
-          </View>
         </TouchableOpacity>
-      </View>
+    
+      </ScrollView>
+ 
       <Modal isVisible={isModalVisible} style={styles.modal}>
         <View style={styles.modalContent}>
-          <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalCloseButton}>
-            <Icon name="close" size={30} color="#007BFF" />
-          </TouchableOpacity>
+            <View style = {styles.modalHeader}>
+                <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalCloseButton}>
+                <Icon name="close" size={30} color= "#8ecae6" />
+                </TouchableOpacity>
+                <View style = {styles.modalSubheader}>
+                    <Text style={styles.modalHeaderText}>Interests</Text>
+                </View>
+
+            </View>
+        
           <TextInput
             style={styles.searchInput}
             value={searchText}
             onChangeText={(text) => setSearchText(text)}
             placeholder="Search interests"
           />
+          <ScrollView>
           {filteredCategories.map((category, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() => toggleTag(category)}
+              onPress={() => {toggleTag(category),  setSearchText('')}}
             >
               <Text style={[styles.modalTag, selectedTags.includes(category) && styles.selectedTag]}>
                 {category}
               </Text>
             </TouchableOpacity>
           ))}
+        </ScrollView>
+        <View style={styles.modalFooter}>
+            <Button onPress={() => {setModalVisible(false), setSelectedBoxTags(selectedTags)}} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: '60%', borderRadius: 15 }} >
+                Save
+            </Button>
+        </View>
         </View>
       </Modal>
     </View>
@@ -158,20 +170,39 @@ const styles = StyleSheet.create({
   tagBox: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  tag: {
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    padding: 5,
-    margin: 5,
-    borderRadius: 5,
+    paddingTop: 10
   },
   selectedTag: {
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    padding: 5,
+    backgroundColor: '#FED9A2',
+    color: 'black',
+    padding: 7,
     margin: 5,
-    borderRadius: 5,
+    borderRadius: 15,
+    borderColor: '#FED9A2',
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+ addTagButton: {
+    backgroundColor: '#023047',
+    color: 'white',
+    padding: 7,
+    margin: 5,
+    borderRadius: 15,
+    borderColor: '#023047',
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+  saveButton: {
+    backgroundColor: 'white',
+    color: 'black',
+    padding: 14,
+    margin: 5,
+    borderRadius: 15,
+    borderColor: '#FFB668',
+    borderWidth: 1,
+    overflow: 'hidden',
+    width: '40%',
+    alignItems: 'center'
   },
   activities: {
     marginTop: 10,
@@ -180,22 +211,63 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   addButton: {
-    backgroundColor: '#007BFF',
-    color: '#fff',
+    backgroundColor: 'white',
+    color: 'black',
     padding: 10,
+    borderColor: 'black',
+    borderWidth: 1
   },
   modal: {
     flex: 1,
     margin: 0,
   },
+  tagBoxHeader: {
+    justifyContent: 'space-between',
+    // alignItems: 'center',
+    alignContent: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,  // Add this line to create a border
+    borderBottomColor: '#ccc', 
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,  // Add this line to create a border
+    borderBottomColor: '#ccc', 
+  },
+  
+  modalSubheader: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  
+  modalHeaderText: {
+    fontSize: 18,
+    fontWeight: 800,
+    color: 'black',
+  },
   modalContent: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
+    paddingTop: 50,
+    padding: 20
   },
   modalTag: {
-    padding: 10,
-    fontSize: 16,
+    backgroundColor: 'white',
+    color: 'black',
+    padding: 7,
+    margin: 5,
+    borderRadius: 15,
+    borderColor: 'gray',
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+  modalFooter: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
   },
   placeholder: {
     fontSize: 16,
@@ -203,12 +275,12 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     padding: 10,
-    marginBottom: 10,
+    marginVertical: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray'
   },
   modalCloseButton: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 1,
+    color: "#8ecae6"
   },
 });

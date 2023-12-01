@@ -16,6 +16,8 @@ import { configureStore }
   from '@reduxjs/toolkit';
 import { Provider } from "react-redux";
 import userReducer from './services/user-reducer';
+import BuildPofile from './screens/WelcomeScreens/BuildProfileScreen';
+
 
 const store = configureStore({
   reducer: {user: userReducer}
@@ -43,6 +45,7 @@ export default function App() {
           <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="BuildProfile" component={BuildPofile} options={{ headerShown: false }} />
           <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
