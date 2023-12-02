@@ -14,78 +14,80 @@ import CalendarPicker from "react-native-calendar-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import the JSON data
-import categoriesData from "./categories.json";
+import categoriesData from "./locations.json";
 
 // Extract the travel interests array from the imported data
-const travelInterests = categoriesData.travelInterests;
+const travelLocations = categoriesData.locations;
 
-export default function TagBox() {
+export default function LocationSearch() {
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedBoxTags, setSelectedBoxTags] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [filteredCategories, setFilteredCategories] = useState(travelInterests);
+  const [searchLocation, setSearchLocation] = useState("Search Locations");
+  const [filteredCategories, setFilteredCategories] = useState([]);
 
   // Load selected tags from AsyncStorage when the component mounts
-  useEffect(() => {
-    const loadSelectedTags = async () => {
-      try {
-        const savedTags = await AsyncStorage.getItem("selectedTags");
-        if (savedTags) {
-          setSelectedBoxTags(JSON.parse(savedTags));
-        }
-      } catch (error) {
-        console.error("Error loading selected tags: " + error);
-      }
-    };
+  // useEffect(() => {
+  //   const loadSelectedTags = async () => {
+  //     try {
+  //       const savedTags = await AsyncStorage.getItem('selectedTags');
+  //       if (savedTags) {
+  //         setSelectedBoxTags(JSON.parse(savedTags));
+  //       }
+  //     } catch (error) {
+  //       console.error("Error loading selected tags: " + error);
+  //     }
+  //   };
 
-    loadSelectedTags();
-  }, []);
+  //   loadSelectedTags();
+  // }, []);
 
   // Save selected tags to AsyncStorage when they change
-  useEffect(() => {
-    const saveSelectedTags = async () => {
-      try {
-        await AsyncStorage.setItem(
-          "selectedTags",
-          JSON.stringify(selectedBoxTags)
-        );
-      } catch (error) {
-        console.error("Error saving selected tags: " + error);
-      }
-    };
+  // useEffect(() => {
+  //   const saveSelectedTags = async () => {
+  //     try {
+  //       await AsyncStorage.setItem('selectedTags', JSON.stringify(selectedBoxTags));
+  //     } catch (error) {
+  //       console.error("Error saving selected tags: " + error);
+  //     }
+  //   };
 
-    saveSelectedTags();
-  }, [selectedBoxTags]);
+  //   saveSelectedTags();
+  // }, [selectedBoxTags]);
 
-  const addTag = () => {
-    if (tagInput.trim() !== "" && travelInterests.includes(tagInput)) {
-      setTags([...tags, tagInput]);
-      setTagInput("");
-    }
-  };
+  // const addTag = () => {
+  //   if (tagInput.trim() !== '' && travelLocations.includes(tagInput)) {
+  //     setTags([...tags, tagInput]);
+  //     setTagInput('');
+  //   }
+  // };
 
   const removeTag = (index) => {
     const updatedTags = tags.filter((_, i) => i !== index);
     setTags(updatedTags);
   };
 
-  const toggleTag = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
+  const selectTag = (tag) => {
+    setSelectedLocation(tag);
+    setModalVisible(false);
   };
 
   // Filter the categories based on the search text
   useEffect(() => {
-    const filtered = travelInterests.filter((category) =>
-      category.toLowerCase().startsWith(searchText.toLowerCase())
-    );
-    setFilteredCategories(filtered);
+    if (searchText.trim() === "") {
+      // If the search text is empty, show no categories
+      setFilteredCategories([]);
+    } else {
+      const filtered = travelLocations.filter((category) =>
+        category.toLowerCase().startsWith(searchText.toLowerCase())
+      );
+
+      setFilteredCategories(filtered);
+    }
   }, [searchText]);
 
   // Clear search text when opening the modal
@@ -95,38 +97,31 @@ export default function TagBox() {
     }
   }, [isModalVisible]);
 
-  const clearAsyncStorage = async () => {
-    try {
-      await AsyncStorage.clear();
-      console.log("AsyncStorage cleared successfully");
-    } catch (error) {
-      console.error("Error clearing AsyncStorage:", error);
-    }
-  };
+  // const clearAsyncStorage = async () => {
+  //   try {
+  //     await AsyncStorage.clear();
+  //     console.log('AsyncStorage cleared successfully');
+  //   } catch (error) {
+  //     console.error('Error clearing AsyncStorage:', error);
+  //   }
+  // };
 
   //Call the function to clear AsyncStorage
   // clearAsyncStorage();
 
   return (
-    <View>
-      <ScrollView contentContainerStyle={styles.tagBox}>
-        {selectedBoxTags.map((tag, index) => (
-          <TouchableOpacity key={index} onPress={() => removeTag(index)}>
-            <View key={index} style={styles.selectedTag}>
-              <Text>{tag}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity
-          onPress={() => {
-            setModalVisible(true), setSelectedTags(selectedBoxTags);
-          }}
-        >
-          <View style={styles.addTagButton}>
-            <Text style={{ color: "white" }}>+ Add Interests</Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+    <View style={styles.tagBox}>
+      <TouchableOpacity
+        style={styles.searchButton}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
+        <Text>
+          Enter destination:{"\n"}
+          {selectedLocation ? selectedLocation : " "}
+        </Text>
+      </TouchableOpacity>
 
       <Modal isVisible={isModalVisible} style={styles.modal}>
         <View style={styles.modalContent}>
@@ -138,7 +133,7 @@ export default function TagBox() {
               <Icon name="close" size={30} color="#8ecae6" />
             </TouchableOpacity>
             <View style={styles.modalSubheader}>
-              <Text style={styles.modalHeaderText}>Interests</Text>
+              <Text style={styles.modalHeaderText}>Find your destination</Text>
             </View>
           </View>
 
@@ -146,14 +141,14 @@ export default function TagBox() {
             style={styles.searchInput}
             value={searchText}
             onChangeText={(text) => setSearchText(text)}
-            placeholder="Search interests"
+            placeholder="Search Locations"
           />
           <ScrollView>
             {filteredCategories.map((category, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() => {
-                  toggleTag(category), setSearchText("");
+                  selectTag(category), setSearchText("");
                 }}
               >
                 <Text
@@ -201,8 +196,8 @@ const styles = StyleSheet.create({
     color: "black",
     padding: 7,
     margin: 5,
-    borderRadius: 15,
-    borderColor: "#FED9A2",
+    // borderRadius: 15,
+    // borderColor: '#FED9A2',
     borderWidth: 1,
     overflow: "hidden",
   },
@@ -211,8 +206,8 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 7,
     margin: 5,
-    borderRadius: 15,
-    borderColor: "#023047",
+    // borderRadius: 15,
+    // borderColor: '#023047',
     borderWidth: 1,
     overflow: "hidden",
   },
@@ -283,10 +278,11 @@ const styles = StyleSheet.create({
     color: "black",
     padding: 7,
     margin: 5,
-    borderRadius: 15,
-    borderColor: "gray",
-    borderWidth: 1,
-    overflow: "hidden",
+    // borderColor: 'gray',
+    // borderWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    // overflow: 'hidden',
   },
   modalFooter: {
     justifyContent: "space-between",
@@ -306,5 +302,16 @@ const styles = StyleSheet.create({
   },
   modalCloseButton: {
     color: "#8ecae6",
+  },
+  searchButton: {
+    flex: 1,
+    backgroundColor: "white",
+    // backgroundColor: '#023047',
+    padding: 10,
+    margin: 3,
+    borderRadius: 10,
+    borderColor: "#023047",
+    borderWidth: 1,
+    alignItems: "left",
   },
 });

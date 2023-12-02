@@ -1,61 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-paper';
 import CalendarPicker from 'react-native-calendar-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DatePicker() {
   const [isCalendarVisible, setCalendarVisible] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
 
+  // useEffect(() => {
+  //   const loadDates = async () => {
+  //     try {
+  //       const startDate = await AsyncStorage.getItem('startDate');
+  //       const endDate = await AsyncStorage.getItem('endDate');
+  
+  //       if (startDate) {
+  //         setSelectedStartDate(new Date(JSON.parse(startDate)));
+  //       }
+  //       if (endDate) {
+  //         setSelectedEndDate(new Date(JSON.parse(endDate)));
+  //       }
+  //     } catch (error) {
+  //       console.error("Error loading selected dates: " + error);
+  //     }
+  //   };
+  //   loadDates();
+  // }, []);
+  
+  // useEffect(() => {
+  //   const saveStartDates = async () => {
+  //     try {
+  //       if (selectedStartDate) {
+  //         await AsyncStorage.setItem('startDate', JSON.stringify(selectedStartDate));
+  //       }
+  //     } catch (error) {
+  //       console.error("Error saving selected start date: " + error);
+  //     }
+  //   };
+  
+  //   saveStartDates();
+  // }, [selectedStartDate]);
+  
+  // useEffect(() => {
+  //   const saveEndDates = async () => {
+  //     try {
+  //       if (selectedEndDate) {
+  //         await AsyncStorage.setItem('endDate', JSON.stringify(selectedEndDate));
+  //       }
+  //     } catch (error) {
+  //       console.error("Error saving selected end date: " + error);
+  //     }
+  //   };
+  
+  //   saveEndDates();
+  // }, [selectedEndDate]);
+  
+  const resetDates = () => {
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
+  };
+
+
+
+
+
+
+
   const openDatePicker = (input) => {
     setCalendarVisible(true);
-    // Add logic to handle start and end date selection
-    // Use the 'input' parameter to distinguish between start and end date
   };
 
 const onDateChange = (date, type) => {
   //function to handle the date change
   if (type === "END_DATE") {
     setSelectedEndDate(date);
+    
   } else {
     setSelectedEndDate(null);
     setSelectedStartDate(date);
+    
   }
 };
 
-  const saveDates = () => {
+  const saveDates = async() => {
     // Add logic to save start and end dates
     console.log('Selected Start Date:', selectedStartDate ? selectedStartDate.toString() : 'Not Selected');
     console.log('Selected End Date:', selectedEndDate ? selectedEndDate.toString() : 'Not Selected');
+    await AsyncStorage.setItem('startDate', JSON.stringify(selectedStartDate));
+    await AsyncStorage.setItem('endDate', JSON.stringify(selectedEndDate));
 
     // Close the calendar after saving dates
     setCalendarVisible(false);
   };
 
-  const resetDates = () => {
-    setSelectedStartDate(null);
-    setSelectedEndDate(null);
-    // setCalendarVisible(false);
-  };
 
   return (
     <View>
-      <View style={styles.tagBoxHeader}>
-        <Text style={styles.headerText}>Dates</Text>
-      </View>
+    
       
       <View style={styles.dateButtonsContainer}>
       <TouchableOpacity style={styles.dateButton} onPress={() => openDatePicker('start')}>
       <Text>
+        {console.log("herplze",selectedStartDate,selectedEndDate)}
          Start Date:{'\n'}
             {selectedStartDate
               ? `${selectedStartDate.format('DD MMM YYYY')}`
               : 'DD MM YYYY'}
           </Text>
         </TouchableOpacity>
-        
+        <Icon name="arrow-forward" size={24} color="#000" style={styles.arrowIcon} />
         <TouchableOpacity style={styles.dateButton} onPress={() => openDatePicker('end')}>
         <Text>
           End Date:{'\n'}
@@ -66,31 +121,32 @@ const onDateChange = (date, type) => {
        
       </View>
 
-        {/* {isCalendarVisible && ( */}
-        <View style={styles.calendar}>
-          <CalendarPicker
-            onDateChange={onDateChange}
-            selectedStartDate={selectedStartDate}
-            selectedEndDate={selectedEndDate}
-            minDate={new Date()}
-            allowRangeSelection={true}
-            selectedDayColor='#FFC0CB'  
-            selectedDayTextColor="#FFFFFF"
-            width={Dimensions.get('window').width * 0.9} 
-          />
-        </View>
+      {isCalendarVisible && (
+  <View style={styles.calendar}>
+    <CalendarPicker
+      onDateChange={onDateChange}
+      selectedStartDate={selectedStartDate}
+      selectedEndDate={selectedEndDate}
+      minDate={new Date()}
+      allowRangeSelection={true}
+      selectedDayColor='#FFC0CB'
+      selectedDayTextColor="#FFFFFF"
+      width={Dimensions.get('window').width * 0.9}
+    />
+ 
+  <View style={styles.modalFooter}>
 
-          <View style={styles.modalFooter}>
-            {/* <Button onPress={saveDates} mode="contained" color="#8ecae6" style={styles.saveButton}>
-              Save
-            </Button> */}
-             <Button onPress={resetDates}mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 8 }} >
-                Reset
-            </Button>
-          
-          </View>
-      
-      {/* // )} */}
+  <Button onPress={resetDates} mode="contained" buttonColor="#8ecae6" style={{ borderWidth: 1, paddingHorizontal: 8 }}>
+    Reset
+  </Button>
+  <Button onPress={saveDates} mode="contained" buttonColor='#023047' style={{ borderWidth: 1, paddingHorizontal: 8 }}>
+    Save
+  </Button>
+</View>
+</View>
+)}
+
+
 
     
     </View>
@@ -126,9 +182,11 @@ const styles = StyleSheet.create({
   },
 
   modalFooter: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 10,
+    columnGap: 10
   },
   headerText: {
     fontSize: 18,

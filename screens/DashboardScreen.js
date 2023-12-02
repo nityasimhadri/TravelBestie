@@ -1,15 +1,22 @@
-import React, {useState} from 'react';
-import { View, FlatList, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
-import { Button, Searchbar, Text, Card, IconButton  } from 'react-native-paper';
-import Modal from 'react-native-modal';
-import QuizScreen from './QuizScreen';
-import Icon from 'react-native-vector-icons/Ionicons';
-import TagBox from './TagBox';
-import DatePicker from './DatePicker';
+import React, { useState } from "react";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { Button, Searchbar, Text, Card, IconButton } from "react-native-paper";
+import Modal from "react-native-modal";
+import QuizScreen from "./QuizScreen";
+import Icon from "react-native-vector-icons/Ionicons";
+import TagBox from "./TagBox";
+import DatePicker from "./DatePicker";
+import LocationSearch from "./locationSearch";
+import Travelers from "./Travelers";
 
 export default function DashboardScreen({ navigation }) {
-
-  const likedPlaces = require('./LikedPlaces.json');
+  const likedPlaces = require("./LikedPlaces.json");
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const toggleFilterModal = () => {
     setFilterModalVisible(!isFilterModalVisible);
@@ -19,14 +26,11 @@ export default function DashboardScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.header}>Your Adventure Dashboard!</Text>
-        <View style = {styles.searchContainer}>
-          <Searchbar
-            placeholder="Enter a location"
-            style={styles.searchBar}
-          />
+        <View style={styles.searchContainer}>
+          <Searchbar placeholder="Enter a location" style={styles.searchBar} />
           <IconButton
             icon="filter"
-            iconColor="white"  // Set the color to white
+            iconColor="white" // Set the color to white
             size={24}
             style={styles.filterButton}
             onPress={toggleFilterModal}
@@ -35,73 +39,93 @@ export default function DashboardScreen({ navigation }) {
             //   console.log('Filter button pressed');
             // }}
           />
-       
+        </View>
+        <Modal isVisible={isFilterModalVisible} style={styles.modal}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <TouchableOpacity onPress={toggleFilterModal}>
+                <Icon name="close" size={30} color="#8ecae6" />
+              </TouchableOpacity>
+              <View style={styles.modalSubheader}>
+                <Text style={styles.modalHeaderText}>Filter Trip</Text>
+              </View>
             </View>
-            <Modal
-              isVisible={isFilterModalVisible} style={styles.modal}
-            >
-              <View style={styles.modalContent}>
-                <View style = {styles.modalHeader}>
-                  <TouchableOpacity onPress={() => setModalVisible(false)}>
-                  <Icon name="close" size={30} color= "#8ecae6" />
-                  </TouchableOpacity>
-                    <View style = {styles.modalSubheader}>
-                        <Text style={styles.modalHeaderText}>Filter Trip</Text>
-                    </View>
-                  </View>
+            <ScrollView>
+              <View style={styles.categoryHeader}>
+                <Text style={styles.modalHeaderText}>Location</Text>
+              </View>
+              <LocationSearch />
+              <View style={styles.categoryHeader}>
+                <Text style={styles.modalHeaderText}>Dates</Text>
+              </View>
+              <DatePicker />
+              <View style={styles.categoryHeader}>
+                <Text style={styles.modalHeaderText}>Interests</Text>
+              </View>
+              <TagBox />
+              <View style={styles.categoryHeader}>
+                <Text style={styles.modalHeaderText}>Travelers</Text>
+              </View>
+              <Travelers />
+            </ScrollView>
 
-              
-            
-                <ScrollView >
-                <DatePicker/>
-                  <TagBox/>
-                </ScrollView>
-              
-              <View style={styles.modalFooter}>
-            <Button onPress={() => toggleFilterModal()} mode="contained" buttonColor="#8ecae6"  style={{   borderWidth: 1, paddingHorizontal: 20, width: '60%', borderRadius: 15 }} >
+            <View style={styles.modalFooter}>
+              <Button
+                onPress={() => toggleFilterModal()}
+                mode="contained"
+                buttonColor="#8ecae6"
+                style={{
+                  borderWidth: 1,
+                  paddingHorizontal: 20,
+                  width: "60%",
+                  borderRadius: 15,
+                }}
+              >
                 Save
-            </Button>
-        </View>
-        </View>
-
-            </Modal>
-        </View>
-        <View style={styles.subtextContainer}>
-           <Text style={styles.sectionHeader}>Recommended Places For You</Text>
-          <FlatList
-            horizontal={true}
-            data={likedPlaces}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Card mode="contained" style={styles.card} elevation={0}>
-                <Card.Cover source={require("../assets/snorkeling.avif")} style={styles.cardCover} />
-                <Card.Content style={styles.cardContent}>
-                  <Text style={styles.cardText}>{item.name}</Text>
-                </Card.Content>
-              </Card>
-            )}
-          />
-        </View>
-      
+              </Button>
+            </View>
+          </View>
+        </Modal>
+      </View>
+      <View style={styles.subtextContainer}>
+        <Text style={styles.sectionHeader}>Recommended Places For You</Text>
+        <FlatList
+          horizontal={true}
+          data={likedPlaces}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <Card mode="contained" style={styles.card} elevation={0}>
+              <Card.Cover
+                source={require("../assets/snorkeling.avif")}
+                style={styles.cardCover}
+              />
+              <Card.Content style={styles.cardContent}>
+                <Text style={styles.cardText}>{item.name}</Text>
+              </Card.Content>
+            </Card>
+          )}
+        />
+      </View>
 
       <View style={styles.subtextContainer}>
-           <Text style={styles.sectionHeader}>Browse by Category</Text>
-          <FlatList
-            horizontal={true}
-            data={likedPlaces}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Card mode="contained" style={styles.card} elevation={0}>
-                <Card.Cover source={require("../assets/sunbathing.jpeg")} style={styles.cardCover} />
-                <Card.Content style={styles.cardContent}>
-                  <Text style={styles.cardText}>{item.name}</Text>
-                </Card.Content>
-              </Card>
-            )}
-          />
-        </View>
-
-     
+        <Text style={styles.sectionHeader}>Browse by Category</Text>
+        <FlatList
+          horizontal={true}
+          data={likedPlaces}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <Card mode="contained" style={styles.card} elevation={0}>
+              <Card.Cover
+                source={require("../assets/sunbathing.jpeg")}
+                style={styles.cardCover}
+              />
+              <Card.Content style={styles.cardContent}>
+                <Text style={styles.cardText}>{item.name}</Text>
+              </Card.Content>
+            </Card>
+          )}
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -109,90 +133,98 @@ export default function DashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
   textContainer: {
     top: 30,
     left: 0,
     right: 0,
     bottom: 0,
-    justifyContent: 'top',
-    alignItems: 'left',
-    paddingHorizontal: 30
+    justifyContent: "top",
+    alignItems: "left",
+    paddingHorizontal: 30,
+  },
+  categoryHeader: {
+    justifyContent: "space-between",
+    // alignItems: 'center',
+    alignContent: "center",
+    paddingVertical: 10,
+    borderBottomWidth: 1, // Add this line to create a border
+    borderBottomColor: "#ccc",
   },
   searchContainer: {
-    flexDirection: 'row',
-    alignItems:'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   header: {
-    fontSize: 40,
-    fontFamily: 'AppleSDGothicNeo-Regular',
-    fontWeight: '100',
-    color: 'black',
+    fontSize: 21,
+    fontFamily: "AppleSDGothicNeo-Regular",
+    fontWeight: "250",
+    color: "black",
   },
-    subtextContainer: {
-    flexDirection: 'column',
-    alignItems: 'flex-start', // Change 'left' to 'flex-start'
+  subtextContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start", // Change 'left' to 'flex-start'
     paddingTop: 50,
-    justifyContent: 'flex-start', // Change 'top' to 'flex-start'
-    alignItems: 'flex-start', // Change 'left' to 'flex-start'
-    paddingLeft: 30
+    justifyContent: "flex-start", // Change 'top' to 'flex-start'
+    alignItems: "flex-start", // Change 'left' to 'flex-start'
+    paddingLeft: 30,
   },
   section: {
-    backgroundColor: 'white',
-    borderTopRightRadius: 20,  
-    borderTopLeftRadius: 20,  
+    backgroundColor: "white",
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
     padding: 16,
     top: 40,
-    borderColor: '#fb8500',
-    borderWidth: 1
+    borderColor: "#fb8500",
+    borderWidth: 1,
   },
   filterButton: {
-    backgroundColor: '#FFB668',
+    backgroundColor: "#FFB668",
     borderRadius: 10,
     height: 50,
-    width: 50
+    width: 50,
   },
   sectionHeader: {
-    fontFamily: 'AppleSDGothicNeo-Regular',
+    fontFamily: "AppleSDGothicNeo-Regular",
     fontSize: 18,
     marginBottom: 10,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   sectionText: {
-    fontFamily: 'AppleSDGothicNeo-Regular',
+    fontFamily: "AppleSDGothicNeo-Regular",
     fontSize: 18,
     marginBottom: 10,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
-   searchBar: {
-    backgroundColor: 'white',
+  searchBar: {
+    backgroundColor: "white",
     borderRadius: 8,
-    width: '85%',
+    width: "85%",
     borderWidth: 0.3,
-    borderColor: 'gray',
-    height: 50
+    borderColor: "gray",
+    height: 50,
   },
   card: {
     width: 140,
     margin: 10,
     height: 180,
-    alignContent: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    alignContent: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
   },
   cardCover: {
     height: 160,
   },
   cardContent: {
     paddingTop: 10,
-    flexDirection: 'column',
-    alignItems: 'flex-start', // Change 'left' to 'flex-start'
+    flexDirection: "column",
+    alignItems: "flex-start", // Change 'left' to 'flex-start'
   },
   cardText: {
-    fontFamily: 'AppleSDGothicNeo-Regular',
-    fontWeight: 'bold',
+    fontFamily: "AppleSDGothicNeo-Regular",
+    fontWeight: "bold",
   },
   modal: {
     flex: 1,
@@ -201,35 +233,32 @@ const styles = StyleSheet.create({
 
   modalContent: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+    backgroundColor: "rgba(255, 255, 255, 1)",
     paddingTop: 50,
-    padding: 20
-  
+    padding: 20,
   },
   modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 10,
     // borderBottomWidth: 1,  // Add this line to create a border
-    // borderBottomColor: '#ccc', 
+    // borderBottomColor: '#ccc',
   },
-  
+
   modalSubheader: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
-  
+
   modalHeaderText: {
-    fontSize: 18,
-    fontWeight: 800,
-    color: 'black',
+    fontSize: 17,
+    fontWeight: 500,
+    color: "black",
   },
   modalFooter: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 10,
   },
-  
-
 });
