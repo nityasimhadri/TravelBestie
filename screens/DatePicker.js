@@ -176,9 +176,9 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 3,
     borderRadius: 10,
-    borderColor: '#023047',
-    borderWidth: 1,
-    alignItems: 'center',
+    borderColor: "gray",
+    borderWidth: 0.4,
+    alignItems: 'left',
   },
 
   modalFooter: {

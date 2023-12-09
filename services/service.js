@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const SERVER_API_URL = 'http://localhost:4000/api';
 const USER_DB_API = `${SERVER_API_URL}/users`;
+const TRIP_DB_API = `${SERVER_API_URL}/trips`;
 
 export const setUserInterests = async (uid, interests) => {
     const response = await axios.put(`${USER_DB_API}/intrests/${uid}`, interests);
@@ -57,6 +58,16 @@ export const createUser = async (user) => {
     }
 }
 
+export const createTrip = async (trip) => {
+    try {
+        const response = await axios.post(TRIP_DB_API, trip);
+    
+        return response.data;
+    } catch (error) {
+        console.error("Error in createTrip:", error);
+    }
+}
+
 export const deleteUsers = async (uid) => {
     const response = await axios.delete(`${USER_DB_API}/${uid}`);
     return response.data;
@@ -78,3 +89,5 @@ export const setQuizAnswers = async (uid, quizAnswers) => {
 
     return response.data;
 }
+
+

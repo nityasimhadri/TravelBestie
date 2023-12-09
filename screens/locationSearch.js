@@ -133,7 +133,7 @@ export default function LocationSearch() {
               <Icon name="close" size={30} color="#8ecae6" />
             </TouchableOpacity>
             <View style={styles.modalSubheader}>
-              <Text style={styles.modalHeaderText}>Find your destination</Text>
+              <Text style={styles.modalHeaderText}>Find destination</Text>
             </View>
           </View>
 
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     padding: 14,
     margin: 5,
     borderRadius: 15,
-    borderColor: "#FFB668",
+    borderColor: "#FE4E4E",
     borderWidth: 1,
     overflow: "hidden",
     width: "40%",
@@ -310,8 +310,8 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 3,
     borderRadius: 10,
-    borderColor: "#023047",
-    borderWidth: 1,
+    borderColor: "gray",
+    borderWidth: 0.4,
     alignItems: "left",
   },
 });

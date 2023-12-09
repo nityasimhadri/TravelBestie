@@ -42,8 +42,8 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.userName}>{profile?.username || 'Unknown User'}</Text>
           <Text style={styles.tag}>{profile?.email || 'loading'}</Text>
         </View>
-        <Button mode='contained' style={styles.button}> Edit Profile </Button>
-        <Button mode='contained' style={styles.button} onPress={()=> navigation.navigate('Signup')}> Log Out </Button>
+        <Button mode='contained' style={styles.profileButton}> Edit Profile </Button>
+        <Button mode='contained' style={styles.profileButton} onPress={()=> navigation.navigate('Signup')}> Log Out </Button>
       </View>
       <ScrollView style={styles.section}>
       </ScrollView>
@@ -60,11 +60,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#023047',
+    backgroundColor: '#f2e3e5',
     paddingTop: 20,
     paddingBottom: 40,
     rowGap: 20
     // paddingHorizontal: 20
+  },
+  profileButton: {
+    backgroundColor: "#FE4E4E",
+    borderRadius: 10,
   },
   profilePicture: {
     marginRight: 20,
@@ -73,12 +77,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily: 'AppleSDGothicNeo-Regular',
-    color: 'white'
+    // color: 'white'
   },
   tag: {
     fontSize: 16,
     fontFamily: 'AppleSDGothicNeo-Regular',
-    color: 'white'
+    // color: 'white'
   },
   section: {
     flex: 1,
