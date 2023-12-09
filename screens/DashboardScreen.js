@@ -14,13 +14,19 @@ import TagBox from "./TagBox";
 import DatePicker from "./DatePicker";
 import LocationSearch from "./locationSearch";
 import Travelers from "./Travelers";
+import BudgetRangeSlider from "./BudgetPicker";
+import ChatScreen from "./ChatScreen";
 
 export default function DashboardScreen({ navigation }) {
   const likedPlaces = require("./LikedPlaces.json");
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+  const [nextClicked,setNextClicked] = useState(false)
+
   const toggleFilterModal = () => {
     setFilterModalVisible(!isFilterModalVisible);
   };
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -42,7 +48,7 @@ export default function DashboardScreen({ navigation }) {
         </View>
         <Modal isVisible={isFilterModalVisible} style={styles.modal}>
           <View style={styles.modalContent}>
-            <View style={styles.modalHeader}>
+          <View style={styles.modalHeader}>
               <TouchableOpacity onPress={toggleFilterModal}>
                 <Icon name="close" size={30} color="#8ecae6" />
               </TouchableOpacity>
@@ -50,6 +56,7 @@ export default function DashboardScreen({ navigation }) {
                 <Text style={styles.modalHeaderText}>Filter Trip</Text>
               </View>
             </View>
+            
             <ScrollView>
               <View style={styles.categoryHeader}>
                 <Text style={styles.modalHeaderText}>Location</Text>
@@ -67,21 +74,43 @@ export default function DashboardScreen({ navigation }) {
                 <Text style={styles.modalHeaderText}>Travelers</Text>
               </View>
               <Travelers />
-            </ScrollView>
+              <View style={styles.categoryHeader}>
+                <Text style={styles.modalHeaderText}>Budget</Text>
+              </View>
+              <BudgetRangeSlider />
+              </ScrollView>
+         
+              
+            
 
             <View style={styles.modalFooter}>
-              <Button
-                onPress={() => toggleFilterModal()}
+            <Button
+                onPress={() => {
+                  toggleFilterModal();
+                }}
                 mode="contained"
                 buttonColor="#8ecae6"
                 style={{
                   borderWidth: 1,
                   paddingHorizontal: 20,
-                  width: "60%",
+                  // width: "60%",
                   borderRadius: 15,
                 }}
               >
                 Save
+              </Button>
+              <Button
+                 onPress={()=> { setNextClicked(true)}}
+                mode="contained"
+                buttonColor="#8ecae6"
+                style={{
+                  borderWidth: 1,
+                  paddingHorizontal: 20,
+                  // width: "60%",
+                  borderRadius: 15,
+                }}
+              >
+                Next
               </Button>
             </View>
           </View>
@@ -148,9 +177,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // alignItems: 'center',
     alignContent: "center",
-    paddingVertical: 10,
-    borderBottomWidth: 1, // Add this line to create a border
-    borderBottomColor: "#ccc",
+    paddingTop: 25,
+
+    // borderBottomWidth: 1, // Add this line to create a border
+    // borderBottomColor: "#ccc",
   },
   searchContainer: {
     flexDirection: "row",
@@ -180,7 +210,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   filterButton: {
-    backgroundColor: "#FFB668",
+    backgroundColor: "#FE4E4E",
     borderRadius: 10,
     height: 50,
     width: 50,
@@ -233,7 +263,7 @@ const styles = StyleSheet.create({
 
   modalContent: {
     flex: 1,
-    backgroundColor: "rgba(255, 255, 255, 1)",
+    backgroundColor: "white",
     paddingTop: 50,
     padding: 20,
   },
@@ -242,8 +272,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 10,
-    // borderBottomWidth: 1,  // Add this line to create a border
-    // borderBottomColor: '#ccc',
+    borderBottomWidth: 1, // Add this line to create a border
+    borderBottomColor: "#ccc",
   },
 
   modalSubheader: {
@@ -257,6 +287,8 @@ const styles = StyleSheet.create({
     color: "black",
   },
   modalFooter: {
+    flexDirection: "row",
+    columnGap: 10,
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 10,
